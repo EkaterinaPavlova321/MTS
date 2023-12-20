@@ -16,7 +16,6 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
         }
         return animals;
     }
-
     // Переопределенный метод для создания 10 уникальных животных с использованием цикла do-while
     @Override
     public Set<Animal> createUniqueAnimals() {

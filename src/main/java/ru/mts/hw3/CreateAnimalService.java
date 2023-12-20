@@ -5,6 +5,10 @@ import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Интерфейс с методом по созданию 10 уникальных животных
+ */
+
 public interface CreateAnimalService {
     default Set<Animal> createUniqueAnimals() {
         Set<Animal> uniqueAnimals = new HashSet<>();
