@@ -1,8 +1,9 @@
-package ru.mts.hw3;
+package ru.mts.hw4;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -10,28 +11,50 @@ import java.util.Set;
  */
 
 public interface CreateAnimalService {
-    default Set<Animal> createUniqueAnimals() {
-        Set<Animal> uniqueAnimals = new HashSet<>();
 
+    Random random = new Random();
+    String[] catBreeds = {"Siamese", "Maine Coon", "Persian"};
+    String[] dogBreeds = {"Golden Retriever", "Labrador", "Shepherd"};
+    String[] sharkBreeds = {"Grreat White", "Tiger Shark", "Hammerhead"};
+    String[] wolfBreeds = {"Gray", "Artic", "Red"};
+
+    String[] names = {"Scaly", "Milana", "Rocket", "Buda", "Buba", "Mayout", "Yanix", "Bob", "Max", "Sam"};
+    String[] characters = {"kind", "aggresive", "angry", "friendly", "agile"};
+
+
+    default Animal[] createUniqueAnimals(){
+
+        Animal[] animals = new Animal[10];
         int count = 0;
-        while (count < 10) {
-            Animal animal;
-            if (count % 4 == 0) {
-                animal = new Dog("Labrador", "Dog" + count, BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP), "Friendly");
-            } else if (count % 4 == 1) {
-                animal = new Cat("Siamese", "Cat" + count, BigDecimal.valueOf(150).setScale(2,RoundingMode.HALF_UP), "Playful");
-            } else if (count % 4 == 2) {
-                animal = new Wolf("Gray Wolf", "Wolf" + count, BigDecimal.valueOf(100).setScale(2,RoundingMode.HALF_UP), "Fierce");
-            } else {
-                animal = new Shark("Great White Shark", "Shark" + count, BigDecimal.valueOf(500).setScale(2,RoundingMode.HALF_UP), "Aggressive");
-            }
+        while (count < 10){
 
-            uniqueAnimals.add(animal);
-            System.out.println("Created: " + animal.getBreed() + " - " + animal.getName() + " cost = " + animal.getCost());
+            int breedIndex = random.nextInt(3);
+            int nameIndex = random.nextInt(10);
+            int charactersIndex = random.nextInt(5);
+            int animalIndex = random.nextInt(4);
+
+
+            Animal animal;
+
+            switch (AnimalType.values()[animalIndex]){
+
+                case DOG:
+                    animals[count] = new Dog(dogBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case CAT:
+                    animals[count] = new Cat(catBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case WOLF:
+                    animals[count] = new Wolf(wolfBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case SHARK:
+                    animals[count] = new Shark(sharkBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(3000).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+            }
             count++;
         }
+        return animals;
 
-        return uniqueAnimals;
     }
 }
 

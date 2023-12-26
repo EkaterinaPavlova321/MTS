@@ -1,4 +1,4 @@
-package ru.mts.hw3;
+package ru.mts.hw4;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -7,37 +7,74 @@ import java.util.Set;
 
 public class CreateAnimalServiceImpl implements CreateAnimalService {
     // Перегруженный метод для создания N животных с использованием цикла for
-    public Set<Animal> createAnimals(int numberOfAnimals) {
-        Set<Animal> animals = new HashSet<>();
-        for (int i = 0; i < numberOfAnimals; i++) {
-            Animal animal = new Dog("Labrador", "Dog" + i, BigDecimal.valueOf(200).setScale(2,RoundingMode.HALF_UP), "Friendly");
-            animals.add(animal);
-            System.out.println("Created: " + animal.getBreed() + " - " + animal.getName() + " cost = " + animal.getCost());
+    public Animal[] createAnimals(int numberOfAnimals){
+        Animal[] animals = new Animal[10];
+
+
+        for (int i = 0; i < numberOfAnimals; i++){
+            int breedIndex = random.nextInt(3);
+            int nameIndex = random.nextInt(10);
+            int charactersIndex = random.nextInt(5);
+            int animalIndex = random.nextInt(4);
+
+
+            Animal animal;
+
+            switch (AnimalType.values()[animalIndex]) {
+
+                case DOG:
+                    animals[i] = new Dog(dogBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case CAT:
+                    animals[i] = new Cat(catBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case WOLF:
+                    animals[i] = new Wolf(wolfBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case SHARK:
+                    animals[i] = new Shark(sharkBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(3000).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+
+            }
+            System.out.println("Created: " + animals[i].getBreed() + " - " + animals[i].getName() + ", cost = " + animals[i].getCost() + ", dateBith: " + animals[i].getBirthDate());
         }
+
         return animals;
     }
     // Переопределенный метод для создания 10 уникальных животных с использованием цикла do-while
     @Override
-    public Set<Animal> createUniqueAnimals() {
-        Set<Animal> uniqueAnimals = new HashSet<>();
+    public Animal[] createUniqueAnimals() {
+        Animal[] animals = new Animal[10];
         int count = 0;
         do {
-            Animal animal;
-            if (count % 4 == 0) {
-                animal = new Dog("Labrador", "Dog" + count, BigDecimal.valueOf(200).setScale(2,RoundingMode.HALF_UP), "Friendly");
-            } else if (count % 4 == 1) {
-                animal = new Cat("Siamese", "Cat" + count, BigDecimal.valueOf(150).setScale(2,RoundingMode.HALF_UP), "Playful");
-            } else if (count % 4 == 2) {
-                animal = new Wolf("Gray Wolf", "Wolf" + count, BigDecimal.valueOf(100).setScale(2,RoundingMode.HALF_UP), "Fierce");
-            } else {
-                animal = new Shark("Great White Shark", "Shark" + count, BigDecimal.valueOf(500).setScale(2,RoundingMode.HALF_UP), "Aggressive");
-            }
 
-            uniqueAnimals.add(animal);
-            System.out.println("Created: " + animal.getBreed() + " - " + animal.getName() + " cost = " + animal.getCost());
+            int breedIndex = random.nextInt(3);
+            int nameIndex = random.nextInt(10);
+            int charactersIndex = random.nextInt(5);
+            int animalIndex = random.nextInt(4);
+
+
+            Animal animal;
+
+            switch (AnimalType.values()[animalIndex]) {
+
+                case DOG:
+                    animals[count] = new Dog(dogBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case CAT:
+                    animals[count] = new Cat(catBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case WOLF:
+                    animals[count] = new Wolf(wolfBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex], RandomDate.dateGenerator());
+                    break;
+                case SHARK:
+                    animals[count] = new Shark(sharkBreeds[breedIndex], names[nameIndex], BigDecimal.valueOf(3000).setScale(2, RoundingMode.HALF_UP), characters[charactersIndex],RandomDate.dateGenerator());
+                    break;
+
+            }
+            System.out.println("Created: " + animals[count].getBreed() + " - " + animals[count].getName() + " cost = " + animals[count].getCost() + ", dateBith: " + animals[count].getBirthDate());
             count++;
         } while (count < 10);
-
-        return uniqueAnimals;
+        return animals;
     }
 }

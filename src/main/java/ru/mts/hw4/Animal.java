@@ -1,6 +1,7 @@
-package ru.mts.hw3;
+package ru.mts.hw4;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public interface Animal {
 
@@ -23,5 +24,10 @@ public interface Animal {
      *Метод для получения поля Character
      */
     String getCharacter();
+
+    /**
+     *Метод для получения поля BirthDate
+     */
+    LocalDate getBirthDate();
 
 }

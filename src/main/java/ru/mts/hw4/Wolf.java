@@ -1,12 +1,14 @@
-package ru.mts.hw3;
+package ru.mts.hw4;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
-public class Wolf extends Predator{
-    public Wolf(String breed, String name, BigDecimal cost, String character) {
+public class Wolf extends Predator {
+    public Wolf(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
         this.breed = breed;
         this.name = name;
         this.cost = cost;
         this.character = character;
+        this.birthDate = birthDate;
     }
 }

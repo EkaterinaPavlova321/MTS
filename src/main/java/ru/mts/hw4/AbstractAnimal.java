@@ -1,12 +1,17 @@
-package ru.mts.hw3;
+package ru.mts.hw4;
+
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class AbstractAnimal implements Animal{
     protected String breed;
     protected String name;
     protected BigDecimal cost;
     protected String character;
+
+    protected LocalDate birthDate;
 
     @Override
     public String getBreed() {
@@ -27,4 +32,24 @@ public abstract class AbstractAnimal implements Animal{
     public String getCharacter() {
         return character;
     }
+
+    @Override
+    public LocalDate getBirthDate(){
+        return birthDate;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractAnimal that = (AbstractAnimal) o;
+        return Objects.equals(breed, that.breed) && Objects.equals(name, that.name) && Objects.equals(cost, that.cost) && Objects.equals(character, that.character) && Objects.equals(birthDate, that.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(breed, name, cost, character, birthDate);
+    }
 }
+
