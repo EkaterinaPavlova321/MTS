@@ -51,5 +51,16 @@ public abstract class AbstractAnimal implements Animal{
     public int hashCode() {
         return Objects.hash(breed, name, cost, character, birthDate);
     }
+
+    @Override
+    public String toString() {
+        return "AbstractAnimal{" +
+                "breed='" + breed + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", character='" + character + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
 
