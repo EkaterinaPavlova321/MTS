@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMain {
@@ -100,27 +101,55 @@ public class TestMain {
             String[] leapYearNames = searchService.findLeapYearNames(animals);
             assertArrayEquals(new String[]{"Vasa", "Sam"}, leapYearNames);
         }
-
-        @Test
+        
+//        @ParameterizedTest
+//        @ValueSource(ints = {24, 30})
+//        @DisplayName("Тест метода findOlderAnimal в классе SearchServicesImpl")
+//        void testFindOlderAnimal(int age) {
+//            SearchServiceImpl searchService = new SearchServiceImpl();
+//            Dog dog1 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2000, 4, 7));
+//            Cat cat1 = new Cat("Siamskay", "Milan", BigDecimal.valueOf(20).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2003, 4, 7));
+//            Wolf wolf1 = new Wolf("Gray", "Sam", BigDecimal.valueOf(352).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(1996, 4, 7));
+//            Dog dog2 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(1981, 4, 7));
+//            Dog dog3 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2000, 4, 7));
+//            Animal[] animals = {dog1, cat1, wolf1, dog2, dog3};
+//
+//            Animal[] result = searchService.findOlderAnimal(animals, age);
+//
+//
+//            for (int i = 0; i < result.length; i++) {
+//                assertTrue((LocalDate.now().getYear() - animals[i].getBirthDate().getYear()) > age);
+//            }
+//
+//        }
         @ParameterizedTest
-        @ValueSource(ints = {24, 30})
+        @ValueSource(ints = {15, 22, 24})
         @DisplayName("Тест метода findOlderAnimal в классе SearchServicesImpl")
-        void testFindOlderAnimal(int age) {
+        public void testFindOlderAnimal(int age) {
+
             SearchServiceImpl searchService = new SearchServiceImpl();
+
+
             Dog dog1 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2000, 4, 7));
             Cat cat1 = new Cat("Siamskay", "Milan", BigDecimal.valueOf(20).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2003, 4, 7));
             Wolf wolf1 = new Wolf("Gray", "Sam", BigDecimal.valueOf(352).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(1996, 4, 7));
             Dog dog2 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(1981, 4, 7));
-            Dog dog3 = new Dog("Labrador", "Tom", BigDecimal.valueOf(150).setScale(2, RoundingMode.HALF_UP), "kind", LocalDate.of(2000, 4, 7));
-            Animal[] animals = {dog1, cat1, wolf1, dog2, dog3};
+
+            Animal[] animals = {dog1, cat1, wolf1, dog2};
+            Animal[] expectedAnimals;
+
+            if (age == 15) {
+                expectedAnimals = new Animal[]{dog1, cat1, wolf1, dog2};
+            } else if (age == 22) {
+                expectedAnimals = new Animal[]{dog1, wolf1, dog2};
+            } else {
+                expectedAnimals = new Animal[]{wolf1, dog2};
+            }
+
 
             Animal[] result = searchService.findOlderAnimal(animals, age);
 
-
-            for (int i = 0; i < result.length; i++) {
-                assertTrue((LocalDate.now().getYear() - animals[i].getBirthDate().getYear()) > age);
-            }
-
+            assertArrayEquals(expectedAnimals, result);
         }
 
         @Test
